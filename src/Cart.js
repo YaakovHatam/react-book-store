@@ -1,18 +1,20 @@
 import React, { useState} from 'react';
 import { container } from './store';
+
 function Cart() {
+
     const [books, setBooks] = useState([]);
     container.subscribe(() => {
-        const currentCart = container.getState();
-        setBooks(currentCart.books);
-    })
+        console.log(container.getState());
+        setBooks(Object.assign([], container.getState().books));
+    });
+
     return (
-        <>
-            <h2>My cart</h2>
-            <ul>
-                {JSON.stringify(books)}
-            </ul>
-        </>
+        <><h2>My cart</h2>
+        <ul>
+        {books.map((item, i) => <li key={i}>{item}</li>)}
+      </ul>
+      </>
     );
 }
 

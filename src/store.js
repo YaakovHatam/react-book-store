@@ -24,7 +24,6 @@ const reducer = (model, action, params) => {
     const actions = {
         'ADD': (model) => {
             model.books.push(params.id);
-            console.log(model);
             return model;
         }
     }
