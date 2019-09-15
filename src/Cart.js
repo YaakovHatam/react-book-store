@@ -5,8 +5,8 @@ function Cart() {
 
     const [books, setBooks] = useState([]);
     container.subscribe(() => {
-        console.log(container.getState());
-        setBooks(Object.assign([], container.getState().books));
+        const currentState = container.getState();
+        setBooks(Object.assign([], currentState.books));
     });
 
     return (
