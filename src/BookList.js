@@ -13,7 +13,7 @@ function BookList(props) {
 
     return (
         <div>
-            {books.map(b => <Book {...b} />)}
+            {books.map(b => <Book {...b} key={b.key} id={b.key} />)}
         </div>
     )
 }
