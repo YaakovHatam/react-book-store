@@ -1,19 +1,27 @@
-import React, { useState} from 'react';
-import { container } from './store';
+import React, { useState } from 'react';
+import { container, ACTIONS } from './store';
 
 function Cart() {
 
     const [books, setBooks] = useState([]);
     container.subscribe(() => {
-        const currentState = container.getState();
-        setBooks(Object.assign([], currentState.books));
-    });
+        setBooks(Object.assign([], container.getState().books));
+        console.log('cart updated', container.getState())
+    })
 
+    const removeFromCart = (b) => container.dispatch(ACTIONS.REMOVE, {
+        bookid: b
+    });
+   
     return (
         <><h2>My cart</h2>
-        <ul>
-        {books.map((item, i) => <li key={i}>{item}</li>)}
-      </ul>
+        <fieldset>
+            <legend>My cart</legend>
+            <h3>Items in cart</h3>
+            <ul>
+                {books.map(b => <li>{b} - <button onClick={() => removeFromCart(b)}>Remove</button></li>)}
+            </ul>
+        </fieldset>
       </>
     );
 }

@@ -4,10 +4,10 @@ import { container, ACTIONS } from './store';
 function Book(props) {
     const imagesBaseUrl = 'https://kob-e.github.io/react-book-store/books-data/';
 
-    const addBookToCart = () => {
+    const addBook = () => {
         container.dispatch(ACTIONS.ADD, {
-            id: props.id
-        });
+            bookid: props.id
+        })
     }
 
     return (
@@ -15,7 +15,7 @@ function Book(props) {
             <h2>title: {props.title}</h2>
             <div>author: {props.author} </div>
             <div><img src={imagesBaseUrl + props.imageLink} /></div>
-            <button onClick={addBookToCart}>Add</button>
+            <button onClick={addBook}>Add</button>
         </section>
     )
 }

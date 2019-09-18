@@ -1,34 +1,38 @@
-
 export const ACTIONS = {
-    'ADD': 'ADD'
+    'ADD': 'ADD',
+    'REMOVE': 'REMOVE'
 }
+
+const reducer = (m, action, params) => {
+    const updates = {
+        ADD: (m, params) => { 
+            m.books.push(params.bookid);
+            return m;
+        },
+        REMOVE: (m, params) => {
+            const idx = m.books.indexOf(params.bookid);
+            m.books.splice(idx, 1);
+            return m;
+        }
+    }
+    return updates[action](m, params);
+}
+
 const createStore = (reducer) => {
-    let internalState = { // model
+    let internalState = {
         books: []
-    };
+    }
     const handlers = [];
 
     return {
         dispatch: (action, params) => {
             internalState = reducer(internalState, action, params);
             handlers.forEach(h => h());
+            console.log(internalState);
         },
-        subscribe: (h) => {
-            handlers.push(h);
-        },
+        subscribe: (h) => handlers.push(h),
         getState: () => internalState
     }
-}
-
-const reducer = (model, action, params) => {
-    const actions = {
-        'ADD': (model) => {
-            model.books.push(params.id);
-            return model;
-        }
-    }
-
-    return actions[action](model);
 }
 
 export const container = createStore(reducer);
