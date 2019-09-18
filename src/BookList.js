@@ -4,12 +4,17 @@ import Book from './Book';
 function BookList(props) {
     let [books, setBooks] = useState([]);
 
-    fetch('https://kob-e.github.io/react-book-store/books-data/books.json').then(responseData => {
-        responseData.json().then(booksData => {
-            const filteredBooks = booksData.slice(0, props.num);
-            setBooks(filteredBooks);
+    if (books.length === 0) {
+        fetch('https://kob-e.github.io/react-book-store/books-data/books.json').then(responseData => {
+            responseData.json().then(booksData => {
+                const filteredBooks = booksData.slice(0, props.num);
+                for(let i=0; i < filteredBooks.length; i++) {
+                    filteredBooks[i].price = Math.ceil(Math.random() * 100);
+                }
+                setBooks(filteredBooks);
+            })
         })
-    })
+    }
 
     return (
         <div>

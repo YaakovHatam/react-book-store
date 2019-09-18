@@ -1,24 +1,26 @@
+import { createStore } from 'redux';
+
 export const ACTIONS = {
     'ADD': 'ADD',
     'REMOVE': 'REMOVE'
 }
 
-const reducer = (m, action, params) => {
+const reducer = (m = {books: []}, action) => {
     const updates = {
-        ADD: (m, params) => { 
-            m.books.push(params.bookid);
+        ADD: (m) => { 
+            m.books.push(action.book);
             return m;
         },
-        REMOVE: (m, params) => {
-            const idx = m.books.indexOf(params.bookid);
+        REMOVE: (m) => {
+            const idx = m.books.indexOf(action.bookid);
             m.books.splice(idx, 1);
             return m;
         }
     }
-    return updates[action](m, params);
+    return (updates[action.type] || ((m) => m))(m);
 }
 
-const createStore = (reducer) => {
+/*const createStore = (reducer) => {
     let internalState = {
         books: []
     }
@@ -33,6 +35,8 @@ const createStore = (reducer) => {
         subscribe: (h) => handlers.push(h),
         getState: () => internalState
     }
-}
+}*/
 
-export const container = createStore(reducer);
+export const container = createStore(reducer, {
+    books: []
+});
