@@ -1,6 +1,6 @@
 npm start
 
-https://kob-e.github.io/react-book-store/books-data/books.json
+https://YaakovHatam.github.io/react-book-store/books-data/books.json
 
 ## Install
 `npm i json-server -g`
